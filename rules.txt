@@ -1,0 +1,48 @@
+def checkSpecies(temp) :
+    species = set(["setosa","versicolor","virginica"])
+    func = lambda r : r in species
+    x = np.array([func(i) for i in temp["Species"]])
+    if (False in x) :
+        print("Violation : Invalid species name")
+        print(str(len(x) - np.sum(x)) + " violations")
+    else :
+        print("Invalid species name : No Violation")
+    return (len(x) - np.sum(x))
+
+def positiveCheck(temp) :
+    func = lambda r : r > 0
+    a = np.array([func(temp[xi]) for xi in temp.columns[:-1]])
+    a = a.reshape(a.shape[0]*a.shape[1])
+    if (False in a) :
+        print("Violation : Non-positive values present")
+        print(str(len(a) - np.sum(a)) + " violations\n")
+    else :
+        print("Non-positive values : No Violation\n")
+    return (len(a) - np.sum(a))
+
+def petalCheck(temp) :
+    a = np.array(temp["Petal_Length"]>(2*temp["Petal_Width"]))
+    if (False in a) :
+        print("Violation : Petal Length is less than twice of Petal Width in some places")
+        print(str(len(a) - np.sum(a)) + " violations\n")
+    else :
+        print("Petal Length less than twice of Petal Width : No Violation\n")
+    return (len(a) - np.sum(a))
+
+def sepalCheck(temp) :
+    a = np.array(temp["Sepal_Length"]<=30)
+    if (False in a) :
+        print("Violation : Sepal Length is greater than 30 cm in some places")
+        print(str(len(a) - np.sum(a)) + " violations\n")
+    else :
+        print("Sepal Length greater than 30 cm : No Violation\n")
+    return (len(a) - np.sum(a))
+
+def sepalAndPetalCheck(temp) :
+    a = np.array(temp["Sepal_Length"]>temp["Petal_Length"])
+    if (False in a) :
+        print("Violation : Sepal length is greater than petal length in some places")
+        print(str(len(a) - np.sum(a)) + " violations\n")
+    else :
+        print("Sepal length greater than petal length : No Violation\n")
+    return (len(a) - np.sum(a))
